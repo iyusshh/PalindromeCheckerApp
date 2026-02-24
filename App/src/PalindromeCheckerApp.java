@@ -1,8 +1,13 @@
 
 import java.util.Scanner;
+
+import java.util.Deque;
+import java.util.ArrayDeque;
+=======
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+
 
 public class PalindromeCheckerApp {
 
@@ -13,6 +18,13 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        // Insert characters into deque (rear)
+        for (int i = 0; i < input.length(); i++) {
+            deque.addLast(input.charAt(i));
+
         Stack<Character> stack = new Stack<>();
         Queue<Character> queue = new LinkedList<>();
 
@@ -21,9 +33,19 @@ public class PalindromeCheckerApp {
             char ch = input.charAt(i);
             stack.push(ch);     // LIFO
             queue.add(ch);      // FIFO
+
         }
 
         boolean isPalindrome = true;
+
+
+        // Compare front and rear characters
+        while (deque.size() > 1) {
+
+            char front = deque.removeFirst();
+            char rear  = deque.removeLast();
+
+            if (front != rear) {
 
         // Compare pop (stack) vs dequeue (queue)
         for (int i = 0; i < input.length(); i++) {
@@ -32,6 +54,7 @@ public class PalindromeCheckerApp {
             char fromQueue = queue.remove(); // original order
 
             if (fromStack != fromQueue) {
+
                 isPalindrome = false;
                 break;
             }
