@@ -1,30 +1,37 @@
 
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
-public class UseCase5PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-    
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
         Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
 
-        // Push characters into stack
+        // Push to stack and enqueue to queue
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char ch = input.charAt(i);
+            stack.push(ch);     // LIFO
+            queue.add(ch);      // FIFO
         }
 
         boolean isPalindrome = true;
 
-        // Pop and compare
+        // Compare pop (stack) vs dequeue (queue)
         for (int i = 0; i < input.length(); i++) {
-            char poppedChar = stack.pop();
 
-            if (input.charAt(i) != poppedChar) {
+            char fromStack = stack.pop();     // reverse order
+            char fromQueue = queue.remove(); // original order
+
+            if (fromStack != fromQueue) {
                 isPalindrome = false;
                 break;
             }
