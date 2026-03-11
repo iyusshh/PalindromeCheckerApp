@@ -1,39 +1,43 @@
 import java.util.Scanner;
 
-public class PalindromeCheckerApp {
+public class UseCase10PalindromeCheckerApp {
+
+    // Function to check palindrome ignoring spaces and case
+    public static boolean isPalindrome(String input) {
+
+        // Normalize the string
+        // 1. Convert to lowercase
+        // 2. Remove spaces using regex
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+
+        int left = 0;
+        int right = normalized.length() - 1;
+
+        // Palindrome check using two pointers
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        System.out.println("Enter a string:");
+        String input = sc.nextLine();
 
-        boolean isPalindrome = checkPalindrome(input, 0, input.length() - 1);
-
-        if (isPalindrome) {
-            System.out.println("The given string is a Palindrome.");
+        if (isPalindrome(input)) {
+            System.out.println("The given string is a palindrome (ignoring spaces and case).");
         } else {
-            System.out.println("The given string is NOT a Palindrome.");
+            System.out.println("The given string is NOT a palindrome.");
         }
 
-        scanner.close();
-    }
-
-    // Recursive function
-    public static boolean checkPalindrome(String str, int start, int end) {
-
-        // Base condition: crossed pointers or single character
-        if (start >= end) {
-            return true;
-        }
-
-        // If characters do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call for inner substring
-        return checkPalindrome(str, start + 1, end - 1);
+        sc.close();
     }
 }
