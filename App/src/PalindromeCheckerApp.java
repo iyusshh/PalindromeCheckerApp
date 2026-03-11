@@ -2,6 +2,31 @@
 import java.util.Scanner;
 
 
+public class UseCase10PalindromeCheckerApp {
+
+    // Function to check palindrome ignoring spaces and case
+    public static boolean isPalindrome(String input) {
+
+        // Normalize the string
+        // 1. Convert to lowercase
+        // 2. Remove spaces using regex
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+
+        int left = 0;
+        int right = normalized.length() - 1;
+
+        // Palindrome check using two pointers
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+
+
 
 import java.util.Deque;
 import java.util.ArrayDeque;
@@ -106,22 +131,22 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(word + " is NOT a Palindrome.");
         }
+
     }
 
-    // Recursive function
-    public static boolean checkPalindrome(String str, int start, int end) {
+    public static void main(String[] args) {
 
-        // Base condition: crossed pointers or single character
-        if (start >= end) {
-            return true;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter a string:");
+        String input = sc.nextLine();
+
+        if (isPalindrome(input)) {
+            System.out.println("The given string is a palindrome (ignoring spaces and case).");
+        } else {
+            System.out.println("The given string is NOT a palindrome.");
         }
 
-        // If characters do not match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call for inner substring
-        return checkPalindrome(str, start + 1, end - 1);
+        sc.close();
     }
 }
